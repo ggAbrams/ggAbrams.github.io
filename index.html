@@ -37,7 +37,7 @@
         var w=$("#inputWeight").val();
         var bmi=0;
 
-        if( h<=0 || h>350 || w<=0 || w>650)
+        if( h<=0 || h>350 || w<=0 || w>650 )
         {
           if(h<=0 || h>350)
           {
@@ -97,7 +97,7 @@
     /* 4捨5入 至小數點後 第n位*/
     function formatFloat(num,n)
     {
-      var size=Math.pow(10,power);
+      var size=Math.pow(10,n);
       return Math.round(num*size)/size;
     }
 
@@ -138,11 +138,15 @@
   </div>
 
   <div class="row2">
-    <div class="col-md-9 buttonbox">
+    <div class="col-md-12 buttonbox">
       <button type="submit" id="calc" class="btn btn-default">計算</button>
     </div>
-    <div class="col-md-3 buttonbox">
-      <h6>Design by Shui jian bao de kunao (自學作品)</h6>
+  </div>
+
+  <div class="row3">
+    <div class="col-md-8 buttonbox"></div>
+    <div class="col-md-4 buttonbox">
+      <h5>Design by <strong>Shui jian bao de kunao</strong></h5>
       <h6>2017.03.22</h6>
     </div>
   </div>
