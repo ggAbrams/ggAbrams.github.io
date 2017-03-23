@@ -35,7 +35,7 @@
       {
         var h=$("#inputHight").val();
         var w=$("#inputWeight").val();
-        var bmi=0.0;
+        var bmi=0.0,power=2;
 
         if( h<=0.0 || h>350.0 || w<=0.0 || w>650.0 )
         {
@@ -69,26 +69,27 @@
           else
           {
             bmi=10000*w/(h*h);
-
-            $("#result").val(formatFloat(bmi,3));
-
-
+            //$("#result").val(formatFloat(bmi,3));
 
             if(bmi<18.5)
             {
-              alert("以台灣的BMI標準:過輕(BMI＜18.5)");
+              $("#result").val(formatFloat(bmi,power));
+              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _過輕_ (BMI＜18.5)");
             }
             if(18.5<=bmi && bmi<24.0)
             {
-              alert("以台灣的BMI標準:正常(18.5≦BMI＜24)");
+              $("#result").val(formatFloat(bmi,power));
+              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _正常_ (18.5≦BMI＜24)");
             }
             if(24.0<=bmi && bmi<27.0)
             {
-              alert("以台灣的BMI標準:過重(24≦BMI＜27)");
+              $("#result").val(formatFloat(bmi,power));
+              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _過重_ (24≦BMI＜27)");
             }
             if(27.0<=bmi)
             {
-              alert("以台灣的BMI標準:肥胖(27≦BMI)");
+              $("#result").val(formatFloat(bmi,power));
+              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _肥胖_ (27≦BMI)");
             }
 
             /*清空輸入格*/
