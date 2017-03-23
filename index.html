@@ -35,17 +35,17 @@
       {
         var h=$("#inputHight").val();
         var w=$("#inputWeight").val();
-        var bmi=0;
+        var bmi=0.0;
 
-        if( h<=0 || h>350 || w<=0 || w>650 )
+        if( h<=0.0 || h>350.0 || w<=0.0 || w>650.0 )
         {
-          if(h<=0 || h>350)
+          if(h<=0.0 || h>350.0)
           {
             alert("請輸入正確身高(0 ~ 350 cm)");
             $("#inputHight").val('');
             $("#result").val('');
           }
-          else if(w<=0 || w>650)
+          else if(w<=0.0 || w>650.0)
           {
             alert("請輸入正確體重(0 ~ 650 kg)");
             $("#inputWeight").val('');
@@ -69,22 +69,26 @@
           else
           {
             bmi=10000*w/(h*h);
+
             $("#result").val(formatFloat(bmi,3));
+
+
+
             if(bmi<18.5)
             {
               alert("以台灣的BMI標準:過輕(BMI＜18.5)");
             }
-            else if(27<=bmi)
+            if(18.5<=bmi && bmi<24.0)
             {
-              alert("以台灣的BMI標準:肥胖(27≦BMI)");
+              alert("以台灣的BMI標準:正常(18.5≦BMI＜24)");
             }
-            else if(24<=bmi<27)
+            if(24.0<=bmi && bmi<27.0)
             {
               alert("以台灣的BMI標準:過重(24≦BMI＜27)");
             }
-            else if(18.5<=bmi<24)
+            if(27.0<=bmi)
             {
-              alert("以台灣的BMI標準:正常(18.5≦BMI＜24)");
+              alert("以台灣的BMI標準:肥胖(27≦BMI)");
             }
 
             /*清空輸入格*/
