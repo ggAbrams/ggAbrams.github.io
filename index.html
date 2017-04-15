@@ -1,162 +1,73 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!--告本文件的HTML語言版本:html5，不寫的話瀏覽器會使用預設值-->
 <html>
-<head>
-  <meta charset="UTF-8">
-  <!--行動裝置支援-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BMI 計算機</title>
-  <link rel="stylesheet" href="library/bootstrap-3.3.7/css/bootstrap.css">
-  <script src="library/jquery-3.2.0/jquery-3.2.0.js"></script>
-  <script src="library/bootstrap-3.3.7/js/bootstrap.js"></script>
-  <style>
-    .container-fluid
-    {
-      padding-right: 0px;
-      padding-left: 30px;
-    }
-    .box
-    {
-      padding-left: 50px;
-      padding-top: 30px;
-      padding-right: 50px
-    }
-    .buttonbox
-    {
-      padding-left: 50px;
-      padding-top: 20px;
-    }
-  </style>
+	<head lang='zh-Tw'>
+		<meta charset='utf-8'>
+		<title>RGB to Gray</title>
 
-  <script>
-    $(function()
-    {
-      $("#calc").click(function()
-      {
-        var h=$("#inputHight").val();
-        var w=$("#inputWeight").val();
-        var bmi=0.0,power=2;
-
-        if( h<=0.0 || h>350.0 || w<=0.0 || w>650.0 )
-        {
-          if(h<=0.0 || h>350.0)
-          {
-            alert("請輸入正確身高(0 ~ 350 cm)");
-            $("#inputHight").val('');
-            $("#result").val('');
-          }
-          else if(w<=0.0 || w>650.0)
-          {
-            alert("請輸入正確體重(0 ~ 650 kg)");
-            $("#inputWeight").val('');
-            $("#result").val('');
-          }
-        }
-        else
-        {
-          if(h=="" && w=="")
-          {
-            alert("請輸入身高和體重");
-          }
-          else if(h=="")
-          {
-            alert("請輸入身高");
-          }
-          else if(w=="")
-          {
-            alert("請輸入體重");
-          }
-          else
-          {
-            bmi=10000*w/(h*h);
-            //$("#result").val(formatFloat(bmi,3));
-
-            if(bmi<18.5)
-            {
-              $("#result").val(formatFloat(bmi,power));
-              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _過輕_ (BMI＜18.5)");
-            }
-            if(18.5<=bmi && bmi<24.0)
-            {
-              $("#result").val(formatFloat(bmi,power));
-              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _正常_ (18.5≦BMI＜24)");
-            }
-            if(24.0<=bmi && bmi<27.0)
-            {
-              $("#result").val(formatFloat(bmi,power));
-              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _過重_ (24≦BMI＜27)");
-            }
-            if(27.0<=bmi)
-            {
-              $("#result").val(formatFloat(bmi,power));
-              alert("BMI="+formatFloat(bmi,power)+"，台灣的BMI標準: _肥胖_ (27≦BMI)");
-            }
-
-            /*清空輸入格*/
-            $("#inputHight").val('');
-            $("#inputWeight").val('');
-          }
-        }
-      });
-    });
-    /* 4捨5入 至小數點後 第n位*/
-    function formatFloat(num,n)
-    {
-      var size=Math.pow(10,n);
-      return Math.round(num*size)/size;
-    }
-
-
-  </script>
-
-</head>
-<body>
-  <div class="container-fluid">
-    <ul class="nav nav-pills">
-    <li role="presentation" class="active"><a>BMI 計算機</a></li>
-    <li><a href="https://zh.wikipedia.org/wiki/%E8%BA%AB%E9%AB%98%E9%AB%94%E9%87%8D%E6%8C%87%E6%95%B8" target="_blank">about BMI</a></li>
-    </ul>
-  </div>
-
-
-
-
-  <div class="row1">
-    <div class="col-md-4 box">
-      <div class="form-group">
-        <label for="inputHight">身高</label>
-        <input type="number" class="form-control" id="inputHight" placeholder="身高(cm)">
-      </div>
-    </div>
-
-    <div class="col-md-4 box">
-      <div class="form-group">
-        <label for="inputWeight">體重</label>
-        <input type="number" class="form-control" id="inputWeight" placeholder="體重(kg)">
-      </div>
-    </div>
-
-    <div class="col-md-4 box">
-    <label class="result">BMI</label>
-      <input type="number" class="form-control" id="result" readonly="true">
-    </div>
-  </div>
-
-  <div class="row2">
-    <div class="col-md-12 buttonbox">
-      <button type="submit" id="calc" class="btn btn-default">計算</button>
-    </div>
-  </div>
-
-  <div class="row3">
-    <div class="col-md-8 buttonbox"></div>
-    <div class="col-md-4 buttonbox">
-      <h5>Design by <strong>Shui jian bao de kunao</strong></h5>
-      <h6>2017.03.22</h6>
-    </div>
-  </div>
-
-
-
-</body>
+	</head>
+	<body>
+		<canvas id='myCanvas'></canvas>
+		
+		<script>
+		/*請用firefox開，chrome 目前無解*/
+		/*
+			參考資料:
+			http://www.ezonesoft.com.tw/JavaScript/JSimgProc.htm
+			https://chtseng.wordpress.com/2014/11/12/html5-canvas-%E5%BD%B1%E5%83%8F%E8%99%95%E7%90%86-2/
+		*/
+			var img=new Image();
+			
+			img.src='image/Cow.jpg';
+			
+			var w=parseInt(img.width);
+			var h=parseInt(img.height);
+			var canvas = document.createElement('canvas');
+			canvas.width=w;
+			canvas.height=h;
+			myCanvas.width=w;
+			myCanvas.height=h;
+			var ctx=myCanvas.getContext('2d');
+			
+			ctx.drawImage(img,0,0);
+			
+			var s =ctx.getImageData(0,0,w,h);
+			var r =ctx.createImageData(w,h);
+			
+			
+			
+			function Control(x)
+			{
+				if(x=='RGB2Gray')
+				{
+					for(var i=0;i<w;i++)
+					{
+						for(var j=0;j<h;j++)
+						{
+							var k=(w*i+j)*4;
+							/*
+							
+							2維矩陣轉1維矩陣。陣列取值由左上開始，有左至右再由上而下
+							這裡乘4是因為在html5的canvas中，其每一個pixels都含4個資訊:R、G、B、透明度
+							*/
+							
+							var Gray = 0.299 * s.data[k] + 0.587 * s.data[k+1] + 0.114 * s.data[k+2] 
+							//灰階公式: Gray = 0.299 * Red + 0.587 * Green + 0.114 * Blue
+							
+							r.data[k]=Gray; //red
+							r.data[k+1]=Gray; //green
+							r.data[k+2]=Gray; //biue
+							r.data[k+3]=255; //透明度
+							
+						}
+					}
+				}
+				ctx.putImageData(r,0,0);
+			}
+			
+		</script>
+		<br>
+		<input type='button' value='RGB to Gray' onclick="Control('RGB2Gray');">
+		
+		
+	</body>
 </html>
